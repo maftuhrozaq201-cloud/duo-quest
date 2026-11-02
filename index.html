@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#ffe8f0"><meta name="description" content="DUO QUEST — 30 hari kebiasaan sehat bareng pasangan">
+<link rel="manifest" href="./manifest.json"><link rel="icon" href="./icon.svg" type="image/svg+xml">
+<title>DUO QUEST 💗</title>
+<style>
+:root{--pink:#ffdce8;--pink2:#fff0f5;--lav:#e8e1ff;--mint:#dff7ed;--ink:#453749;--muted:#817487;--white:#fffdfd;--accent:#d95e91;--line:#f2dbe5;--shadow:0 8px 26px #a95c7b16}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(150deg,#fff7fa,#f8f5ff 65%,#f1fff8);font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:var(--ink);padding-bottom:88px}
+button,input,select{font:inherit}button{border:0;border-radius:14px;padding:11px 14px;background:var(--accent);color:white;font-weight:750;cursor:pointer}button:disabled{opacity:.45;cursor:not-allowed}.soft{background:#fff;color:var(--accent);border:1px solid var(--line)}.tiny{padding:7px 10px;font-size:.85rem}
+header{padding:24px 18px 18px;text-align:center;background:linear-gradient(130deg,#ffe4ed,#eee8ff);border-radius:0 0 30px 30px}
+.logo{font-size:2.5rem}h1{margin:2px 0;font-size:1.65rem;letter-spacing:.03em}header p{margin:5px 0;color:#765d78}
+main{max-width:760px;margin:auto;padding:16px;display:grid;gap:14px}.card{background:#ffffffdc;border:1px solid var(--line);border-radius:22px;padding:17px;box-shadow:var(--shadow)}.row{display:flex;align-items:center;justify-content:space-between;gap:10px}.row.wrap{flex-wrap:wrap}.muted{color:var(--muted);font-size:.9rem}.pill{display:inline-block;background:var(--pink2);border:1px solid var(--line);border-radius:999px;padding:5px 10px;font-size:.8rem}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.stat{background:#fff8fb;border-radius:16px;padding:12px;text-align:center}.stat b{display:block;font-size:1.35rem;color:var(--accent)}.progress{height:9px;background:#f7e4ed;border-radius:99px;overflow:hidden;margin:10px 0}.progress span{display:block;height:100%;background:linear-gradient(90deg,#e881aa,#a99be9);width:0%;transition:width .25s}
+nav{display:flex;gap:7px;overflow:auto;padding:2px 0 5px}nav button{white-space:nowrap;background:#fff;color:#84687f;border:1px solid var(--line)}nav button.active{background:var(--accent);color:#fff}
+.mission{display:flex;align-items:flex-start;gap:10px;padding:12px 0;border-bottom:1px solid #f7e8ef}.mission:last-child{border-bottom:0}.mission input{width:20px;height:20px;accent-color:var(--accent);margin-top:2px}.mission label{flex:1;line-height:1.35}.mission small{display:block;color:var(--muted);margin-top:3px}.mission.done label{text-decoration:line-through;color:#9c8e9e}
+input[type=text],input[type=number],select{border:1px solid var(--line);background:#fff;border-radius:12px;padding:11px;color:var(--ink);width:100%}.field{display:grid;gap:6px;margin:10px 0}.hidden{display:none!important}.reward{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 0;border-bottom:1px solid #f5e7ee}.reward:last-child{border-bottom:0}.reward b{display:block}.reward .muted{margin-top:3px}
+footer{text-align:center;padding:20px;color:var(--muted);font-size:.8rem}
+#toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#49384b;color:white;border-radius:99px;padding:12px 18px;box-shadow:var(--shadow);z-index:9;max-width:90%;text-align:center}
+@media(min-width:600px){main{padding:22px}.stats{gap:12px}.card{padding:20px}}
+</style>
+</head>
+<body>
+<header><div class="logo">🐰💗🐻</div><h1>DUO QUEST</h1><p>30 hari jadi tim paling sehat & kompak ✨</p><div class="pill" id="connection">Belum tersambung</div></header>
+<main>
+<section class="card" id="setup">
+<h2>💌 Ruang couple kalian</h2><p class="muted">Buat kode ruang di satu HP, lalu masukkan kode yang sama di HP pasangan. Sinkronisasi online perlu Firebase (panduan ada di README).</p>
+<div class="field"><label for="room">Kode ruang rahasia</label><input id="room" type="text" maxlength="24" placeholder="contoh: maftuh-cinta-7" autocomplete="off"></div>
+<div class="row wrap"><button id="connectBtn">Sambungkan ruang</button><button class="soft" id="offlineBtn">Coba mode lokal</button></div>
+<p class="muted" id="setupMsg">Mode lokal menyimpan progres hanya di browser/HP ini.</p>
+</section>
+<section class="card">
+<div class="row"><div><div class="muted">Petualangan kalian</div><h2 style="margin:3px 0" id="dayTitle">Hari 1 dari 30 🌷</h2></div><span class="pill" id="level">Level 1 · Buds</span></div>
+<div class="progress"><span id="dayBar"></span></div>
+<div class="stats"><div class="stat"><b id="xp">0</b><span class="muted">Total XP</span></div><div class="stat"><b id="doneCount">0/6</b><span class="muted">Misi hari ini</span></div><div class="stat"><b id="points">0</b><span class="muted">Poin hadiah</span></div></div>
+<p class="muted" id="levelHint">Selesaikan misi bersama, sedikit demi sedikit 💞</p>
+</section>
+<nav id="tabs"><button class="active" data-tab="missions">🌸 Misi</button><button data-tab="journey">🗓️ 30 hari</button><button data-tab="achievements">🏅 Achievement</button><button data-tab="rewards">🎁 Hadiah</button><button data-tab="settings">⚙️ Pengaturan</button></nav>
+<section class="card" id="panel"></section>
+<footer>Pelan-pelan juga progress 🌱 Tidak ada hukuman kalau melewatkan hari. Sesuaikan aktivitas dengan kondisi tubuh kalian.</footer>
+</main><div id="toast" class="hidden"></div>
+<script src="./firebase-config.js"></script><script type="module" src="./app.js"></script>
+</body></html>
